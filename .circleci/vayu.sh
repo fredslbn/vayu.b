@@ -48,7 +48,7 @@ FINAL_ZIP_ALIAS=Karenulgarde-${TANGGAL}.zip
 ##----------------------------------------------------------##
 # Specify compiler.
 
-COMPILER=clang17-7
+COMPILER=cosmic-clang
 
 ##----------------------------------------------------------##
 # Specify Linker
@@ -356,8 +356,8 @@ START=$(date +"%s")
 	       OBJCOPY=llvm-objcopy \
 	       OBJDUMP=llvm-objdump \
 	       STRIP=llvm-strip \
-	       #READELF=llvm-readelf \
-	       #OBJSIZE=llvm-size \
+	       READELF=llvm-readelf \
+	       OBJSIZE=llvm-size \
 	       V=$VERBOSE 2>&1 | tee error.log
 	       
 	elif [ -d ${KERNEL_DIR}/gcc64 ];
