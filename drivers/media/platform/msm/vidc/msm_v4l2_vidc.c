@@ -1,4 +1,4 @@
-/* Copyright (c) 2012-2021, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2012-2020, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -583,14 +583,6 @@ static int msm_vidc_probe_vidc_device(struct platform_device *pdev)
 		goto err_enc;
 	}
 
-	/* setup the encoder device with cma */
-	rc = msm_vidc_register_video_device(MSM_VIDC_ENCODER_CMA,
-				nr + 3, core, dev);
-	if (rc) {
-		dprintk(VIDC_ERR, "Failed to register video cma encoder\n");
-		goto err_enc;
-	}
-
 	/* setup the cvp device */
 	if (core->resources.domain_cvp) {
 		rc = msm_vidc_register_video_device(MSM_VIDC_CVP,
@@ -630,11 +622,11 @@ static int msm_vidc_probe_vidc_device(struct platform_device *pdev)
 	mutex_lock(&vidc_driver->lock);
 	list_add_tail(&core->list, &vidc_driver->cores);
 	mutex_unlock(&vidc_driver->lock);
-		
-	#ifdef CONFIG_DEBUG_FS
+
+#ifdef CONFIG_DEBUG_FS
 	core->debugfs_root = msm_vidc_debugfs_init_core(
 		core, vidc_driver->debugfs_root);
-    #endif
+#endif
 
 	vidc_driver->sku_version = core->resources.sku_version;
 
